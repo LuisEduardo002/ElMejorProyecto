@@ -1,25 +1,32 @@
-package com.example.demo.entity;
+package com.example.demo.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
-@Table(name = "comentarios")
 public class Comentario {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Integer comentarioID;
 
     @ManyToOne
-    @JoinColumn(name = "evento_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "usuarioID", nullable = false)
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "eventoID", nullable = false)
     private Evento evento;
 
     @Column(nullable = false)
-    private int calificacion;
+    private Integer calificacion;
 
-    @Column(columnDefinition = "TEXT")
-    private String comentario;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String texto;
+
+    @Column(nullable = false)
+    private LocalDateTime fechaComentario;
+
 }

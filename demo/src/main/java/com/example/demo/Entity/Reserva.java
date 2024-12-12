@@ -1,33 +1,33 @@
-package com.example.demo.entity;
+package com.example.demo.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
-@Table(name = "reservas")
+@Table(name = "Reserva")
 public class Reserva {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer reservaID;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
-    private User usuario;
+    @JoinColumn(name = "usuarioID", nullable = false)
+    private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "evento_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "eventoID", nullable = false)
     private Evento evento;
 
-    @Column(name = "cantidad_entradas", nullable = false)
-    private int cantidadEntradas;
+    @Column(nullable = false)
+    private LocalDateTime fechaReserva;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private EstadoReserva estado;
+    private Integer cantidadEntradas;
 
-    public enum EstadoReserva {
-        ACTIVA, CANCELADA
-    }
+    @Column(nullable = false)
+    private Double total;
 }
+

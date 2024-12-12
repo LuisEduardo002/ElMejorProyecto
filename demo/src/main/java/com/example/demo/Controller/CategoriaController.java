@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,25 +22,25 @@ public class CategoriaController {
 
     @GetMapping("/{id}")
     public Map<String, Object> getCategoriaById(@PathVariable int id) {
-        String sql = "SELECT * FROM categorias WHERE id = ?";
+        String sql = "SELECT * FROM categorias WHERE categoriaID = ?";
         return jdbcTemplate.queryForMap(sql, id);
     }
 
     @PostMapping
     public void addCategoria(@RequestBody Map<String, Object> categoria) {
-        String sql = "INSERT INTO categorias (nombre, descripcion) VALUES (?, ?)";
-        jdbcTemplate.update(sql, categoria.get("nombre"), categoria.get("descripcion"));
+        String sql = "INSERT INTO categorias (nombre) VALUES (?)";
+        jdbcTemplate.update(sql, categoria.get("nombre"));
     }
 
     @PutMapping("/{id}")
     public void updateCategoria(@PathVariable int id, @RequestBody Map<String, Object> categoria) {
-        String sql = "UPDATE categorias SET nombre = ?, descripcion = ? WHERE id = ?";
-        jdbcTemplate.update(sql, categoria.get("nombre"), categoria.get("descripcion"), id);
+        String sql = "UPDATE categorias SET nombre = ? WHERE categoriaID = ?";
+        jdbcTemplate.update(sql, categoria.get("nombre"), id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCategoria(@PathVariable int id) {
-        String sql = "DELETE FROM categorias WHERE id = ?";
+        String sql = "DELETE FROM categorias WHERE categoriaID = ?";
         jdbcTemplate.update(sql, id);
     }
 }

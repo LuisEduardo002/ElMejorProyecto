@@ -5,6 +5,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 
 @Configuration
@@ -12,6 +13,7 @@ public class JwtConfig {
 
     @Bean
     public Key jwtSecretKey() {
-        return Keys.secretKeyFor(SignatureAlgorithm.HS256); // Genera una clave segura automáticamente
+        String secret = "ClaveSuperSecretaDeAlMenos256BitsQueSeaFija!";
+        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)); // Usamos la clave fija para generar el Key
     }
 }
